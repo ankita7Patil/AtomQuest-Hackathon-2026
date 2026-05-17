@@ -163,6 +163,78 @@ function AuditTrail() {
   );
 }
 
+function UserAdminPanel() {
+  const [users, setUsers] = useState([]);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "employee",
+    department: "",
+    manager: ""
+  });
+  const [message, setMessage] = useState("");
+
+  async function loadUsers() {
+    const data = await api("/api/users");
+    setUsers(data.users);
+  }
+
+  useEffect(() => {
+    loadUsers().catch(() => setUsers([]));
+  }, []);
+
+  async function createUser(event) {
+    event.preventDefault();
+    setMessage("");
+    try {
+      await api("/api/users", { method: "POST", body: JSON.stringify(form) });
+      setForm({ name: "", email: "", password: "", role: "employee", department: "", manager: "" });
+      setMessage("User created successfully.");
+      await loadUsers();
+    } catch (err) {
+      setMessage(err.message);
+    }
+  }
+
+  const managers = users.filter((user) => user.role === "manager");
+
+  return (
+    <Card className="p-5">
+      <h2 className="text-lg font-bold">User management</h2>
+      <form onSubmit={createUser} className="mt-4 grid gap-3">
+        <input className="focus-ring rounded-md border border-slate-200 px-3 py-2" placeholder="Full name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+        <input className="focus-ring rounded-md border border-slate-200 px-3 py-2" type="email" placeholder="Work email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
+        <input className="focus-ring rounded-md border border-slate-200 px-3 py-2" type="password" placeholder="Temporary password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+        <div className="grid gap-3 sm:grid-cols-2">
+          <select className="focus-ring rounded-md border border-slate-200 px-3 py-2" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value, manager: "" })}>
+            <option value="employee">Employee</option>
+            <option value="manager">Manager</option>
+            <option value="admin">Admin</option>
+          </select>
+          <input className="focus-ring rounded-md border border-slate-200 px-3 py-2" placeholder="Department" value={form.department} onChange={(e) => setForm({ ...form, department: e.target.value })} />
+        </div>
+        {form.role === "employee" && (
+          <select className="focus-ring rounded-md border border-slate-200 px-3 py-2" value={form.manager} onChange={(e) => setForm({ ...form, manager: e.target.value })}>
+            <option value="">Assign manager later</option>
+            {managers.map((manager) => <option key={manager._id} value={manager._id}>{manager.name}</option>)}
+          </select>
+        )}
+        {message && <p className="rounded-md bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700">{message}</p>}
+        <Button><Plus size={16} /> Create user</Button>
+      </form>
+      <div className="mt-5 space-y-2">
+        {users.map((item) => (
+          <div key={item._id} className="flex items-center justify-between rounded-md border border-slate-100 px-3 py-2 text-sm">
+            <span><strong>{item.name}</strong> · {item.email}</span>
+            <span className={`rounded-md px-2 py-1 text-xs font-bold ${badgeTone(item.role === "admin" ? "Approved" : "Draft")}`}>{item.role}</span>
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
+}
+
 export default function Dashboard() {
   const { user, logout } = useAuth();
   const [dashboard, setDashboard] = useState(null);
@@ -232,6 +304,7 @@ export default function Dashboard() {
         <div className="mt-6 grid gap-6 xl:grid-cols-[0.95fr_1.55fr]">
           <div className="space-y-6">
             {(user.role === "employee" || user.role === "manager") && <GoalForm onCreated={load} currentWeightage={ownDraftWeightage} />}
+            {user.role === "admin" && <UserAdminPanel />}
             <Card className="p-5">
               <h2 className="text-lg font-bold">Workflow health</h2>
               <div className="mt-4 space-y-4">

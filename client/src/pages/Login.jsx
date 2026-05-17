@@ -4,16 +4,10 @@ import Button from "../components/Button.jsx";
 import Card from "../components/Card.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 
-const demoUsers = [
-  ["Employee", "employee@atomquest.demo"],
-  ["Manager", "manager@atomquest.demo"],
-  ["Admin", "admin@atomquest.demo"]
-];
-
 export default function Login() {
   const { login } = useAuth();
-  const [email, setEmail] = useState("employee@atomquest.demo");
-  const [password, setPassword] = useState("Password@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +44,7 @@ export default function Login() {
 
         <Card className="p-6">
           <h2 className="text-2xl font-bold">Sign in</h2>
-          <p className="mt-2 text-sm text-slate-600">Use a demo account or your seeded Atlas user.</p>
+          <p className="mt-2 text-sm text-slate-600">Use the account created by your company admin.</p>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <label className="block">
               <span className="text-sm font-semibold">Email</span>
@@ -63,12 +57,8 @@ export default function Login() {
             {error && <p className="rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-700">{error}</p>}
             <Button className="w-full" disabled={loading}>{loading ? "Signing in..." : "Login"}</Button>
           </form>
-          <div className="mt-6 grid gap-2">
-            {demoUsers.map(([role, demoEmail]) => (
-              <button key={demoEmail} className="focus-ring rounded-md border border-slate-200 px-3 py-2 text-left text-sm hover:border-moss" onClick={() => setEmail(demoEmail)}>
-                <span className="font-semibold">{role}</span> <span className="text-slate-500">{demoEmail}</span>
-              </button>
-            ))}
+          <div className="mt-6 rounded-md bg-slate-50 p-4 text-sm text-slate-600">
+            First login is created from Render environment variables: <span className="font-semibold">ADMIN_EMAIL</span> and <span className="font-semibold">ADMIN_PASSWORD</span>.
           </div>
         </Card>
       </div>

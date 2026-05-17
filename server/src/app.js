@@ -6,6 +6,7 @@ import goalRoutes from "./routes/goal.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import reportRoutes from "./routes/report.routes.js";
 import auditRoutes from "./routes/audit.routes.js";
+import userRoutes from "./routes/user.routes.js";
 import { errorHandler, notFound } from "./middleware/error.js";
 
 const app = express();
@@ -20,6 +21,7 @@ app.use("/api/goals", goalRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/audit", auditRoutes);
+app.use("/api/users", userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
