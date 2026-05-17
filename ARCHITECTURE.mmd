@@ -1,0 +1,14 @@
+flowchart LR
+  U["Employee / Manager / Admin"] --> FE["React + Tailwind Portal"]
+  FE --> API["Express REST API"]
+  API --> AUTH["JWT Authentication"]
+  AUTH --> RBAC["Role-Based Authorization"]
+  RBAC --> GOALS["Goals + Approval Workflow"]
+  RBAC --> CHECKINS["Quarterly Check-ins"]
+  RBAC --> REPORTS["CSV / Excel Reports"]
+  GOALS --> VALIDATION["Goal Rules: 100% total, min 10%, max 8"]
+  GOALS --> AUDIT["Audit Trail Logging"]
+  CHECKINS --> AUDIT
+  REPORTS --> AUDIT
+  VALIDATION --> DB[("MongoDB Atlas")]
+  AUDIT --> DB
