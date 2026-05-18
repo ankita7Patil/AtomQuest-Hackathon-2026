@@ -103,6 +103,8 @@ Admin creates users -> Employee creates goals -> Employee submits plan -> Manage
 
 ## Architecture
 
+![GoalTrack Portal Architecture](docs/goaltrack-architecture.svg)
+
 ```mermaid
 flowchart LR
   U["Employee / Manager / Admin"] --> FE["React + Tailwind Portal on Vercel"]
