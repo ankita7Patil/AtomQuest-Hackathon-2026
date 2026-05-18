@@ -1,15 +1,29 @@
 # GoalTrack Portal
 
-GoalTrack Portal is a full-stack company goal setting and tracking platform built for the **AtomQuest Hackathon 2026**. It supports real Admin, Manager, and Employee workflows with JWT authentication, role-based dashboards, goal validation, manager approvals, quarterly check-ins, audit logging, and CSV reporting.
+> **AtomQuest Hackathon 2026 Submission**  
+> A production-ready goal setting and tracking portal for company performance management.
 
-## Live Links
+GoalTrack Portal is a full-stack web application that helps companies manage employee goals, manager approvals, quarterly check-ins, planned vs actual tracking, audit logs, and CSV reports. It is built with a real organizational workflow in mind: admins create users, employees submit goals, managers approve them, and leadership can track progress with clean dashboards.
+
+## Project Links
 
 | Item | Link |
 | --- | --- |
-| Frontend | https://atom-quest-hackathon-2026.vercel.app |
+| Live Portal | https://atom-quest-hackathon-2026.vercel.app |
+| Demo Video | https://drive.google.com/file/d/1BIArt6hepFyXAD-lps8dk-DRULDdAZ5x/view?usp=sharing |
 | Backend API | https://atomquest-hackathon-2026-pgnl.onrender.com |
 | Health Check | https://atomquest-hackathon-2026-pgnl.onrender.com/api/health |
-| Repository | https://github.com/ankita7Patil/AtomQuest-Hackathon-2026 |
+| Source Code | https://github.com/ankita7Patil/AtomQuest-Hackathon-2026 |
+
+## Why This Project
+
+Companies often manage goals through spreadsheets, email threads, and disconnected review notes. GoalTrack Portal brings the whole process into one structured platform:
+
+- Admins can create and manage real users.
+- Employees can create validated goal plans.
+- Managers can approve or reject submitted goals.
+- Quarterly check-ins keep progress measurable.
+- Reports and audit logs make the system transparent.
 
 ## Evaluator Credentials
 
@@ -36,7 +50,7 @@ Admin creates users -> Employee creates goals -> Employee submits plan -> Manage
 | Deployment | Vercel frontend, Render backend |
 | Reports | CSV export compatible with Excel |
 
-## Features
+## Key Features
 
 - JWT login authentication
 - Role-based dashboards for Admin, Manager, and Employee
@@ -57,6 +71,30 @@ Admin creates users -> Employee creates goals -> Employee submits plan -> Manage
 - Responsive modern UI
 - Clean REST API architecture
 - MongoDB Atlas schemas for users, goals, check-ins, and audit logs
+
+## Role-Based Experience
+
+### Admin
+
+- Creates managers, employees, and other admins
+- Assigns employees to managers
+- Monitors organization-level goal progress
+- Views audit trail activity
+- Exports CSV reports
+
+### Employee
+
+- Creates goal plans with title, description, planned progress, status, and weightage
+- Submits only valid goal plans with 100% total weightage
+- Updates quarterly planned vs actual progress
+- Tracks goal status over time
+
+### Manager
+
+- Views submitted goals from assigned employees
+- Approves or rejects goals
+- Tracks team workflow health
+- Exports reports for review
 
 ## Architecture
 
@@ -175,3 +213,14 @@ VITE_API_URL=https://atomquest-hackathon-2026-pgnl.onrender.com
 - **User friendliness:** Simple dashboards, clear metrics, responsive layout, and role-specific actions.
 - **Technical robustness:** JWT middleware, role protection, backend validation, centralized errors, and MongoDB Atlas persistence.
 - **Cost optimization:** Uses free-tier-friendly Vercel, Render, and MongoDB Atlas deployment.
+
+## Demo Story
+
+The recommended demo flow is:
+
+1. Login as Admin and create users.
+2. Login as Employee and create goals with 100% total weightage.
+3. Submit the employee goal plan.
+4. Login as Manager and approve submitted goals.
+5. Login as Employee and update quarterly progress.
+6. Login as Admin and export the CSV report.
