@@ -4,6 +4,11 @@
 > A production-ready goal setting and tracking portal for company performance management.
 
 GoalTrack Portal is a full-stack web application that helps companies manage employee goals, manager approvals, quarterly check-ins, planned vs actual tracking, audit logs, and CSV reports. It is built with a real organizational workflow in mind: admins create users, employees submit goals, managers approve them, and leadership can track progress with clean dashboards.
+<div align="center">
+
+![AtomQuest_hackathon](Atom.png)
+
+</div>
 
 ## Project Links
 
